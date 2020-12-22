@@ -86,6 +86,14 @@ class WrapperSecurity{
 
 };
 
+void factoryMethod(ISecurityWrapper& sWrapper, int in){
+    if(1 == in) // Factory
+        sWrapper = new OpenSSLWrapper();
+    if(2 == in)
+        sWrapper = new CiscoSecWrapper();
+    //if(3 == in)
+        //sWrapper = new NewWrapperClass();
+}
 
 // some other cpp file
 int main(){
@@ -98,10 +106,11 @@ int main(){
     // factory method would have a function that takes
     // input and determines the concrete class
     ISecurityWrapper *sWrapper = nullptr;
-    if(1 == in) // Factory
-        sWrapper = new OpenSSLWrapper();
-    if(2 == in)
-        sWrapper = new CiscoSecWrapper();
+    factoryMethod(sWrapper, in);
+    //if(1 == in) // Factory
+    //    sWrapper = new OpenSSLWrapper();
+    //if(2 == in)
+    //    sWrapper = new CiscoSecWrapper();
 
     sWrapper->init("ewfewfe");
     std::cout << sWrapper->process() << std::endl;
